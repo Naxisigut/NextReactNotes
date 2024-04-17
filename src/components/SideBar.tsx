@@ -1,7 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
+import { getAllNotes } from '@/lib/redis.js';
+import SideBarNoteList from './SideBarNoteList';
 
 export default async function SideBar() {
+  const allNotesStock = await getAllNotes()
+  const notes = Object.entries(allNotesStock)
+  
   return (
     <>
       <section className="col sidebar">
@@ -17,6 +22,7 @@ export default async function SideBar() {
         </section>
         <nav>
           {/* sidebar note list */}
+          <SideBarNoteList notes={notes}></SideBarNoteList>
         </nav>
       </section>
     </>
