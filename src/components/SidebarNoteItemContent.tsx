@@ -1,4 +1,4 @@
-"useClient"
+'use client';
 
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useRef, useState, useTransition } from "react"
@@ -52,8 +52,29 @@ export default function SidebarNoteItemContent({
           ? '1px solid var(--primary-border)'
           : '1px solid transparent'
       }}
+      onClick={() => {
+        const sidebarToggle = document.getElementById('sidebar-toggle')
+        if(sidebarToggle){
+          sidebarToggle.checked = true
+        }
+        router.push(`/note/${id}`)
+      }}
     >
+      open note for preview
+    </button>
 
+    <button 
+      className="sidebar-note-toggle-expand"
+      onClick={(e) => {
+        e.stopPropagation()
+        setIsExpanded(!isExpanded)
+      }}
+    >{
+      isExpanded 
+        ? <img src="/chevron-down.svg" width="10px" height="10px" alt="Collapse" />
+        : <img src="/chevron-up.svg" width="10px" height="10px" alt="Expand" />
+    }
+      { isExpanded && expandedChildren}
     </button>
 
     </div>
