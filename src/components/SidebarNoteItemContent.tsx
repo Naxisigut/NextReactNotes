@@ -8,6 +8,9 @@ export default function SidebarNoteItemContent({
   title,
   children,
   expandedChildren
+}: {
+  id: string,
+  title: string,
 }){
   const router = useRouter()
   const pathName = usePathname()
@@ -74,8 +77,8 @@ export default function SidebarNoteItemContent({
         ? <img src="/chevron-down.svg" width="10px" height="10px" alt="Collapse" />
         : <img src="/chevron-up.svg" width="10px" height="10px" alt="Expand" />
     }
-      { isExpanded && expandedChildren}
     </button>
+    { isExpanded && expandedChildren}
 
     </div>
   )
