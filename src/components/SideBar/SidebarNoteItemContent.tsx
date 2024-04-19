@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useRef, useState, useTransition } from "react"
+import React, { useEffect, useRef, useState, useTransition } from "react"
 
 export default function SidebarNoteItemContent({
   id,
@@ -11,6 +11,8 @@ export default function SidebarNoteItemContent({
 }: {
   id: string,
   title: string,
+  children: React.ReactNode,
+  expandedChildren: React.ReactNode
 }){
   const router = useRouter()
   const pathName = usePathname()

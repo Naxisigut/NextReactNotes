@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import SidebarNoteItemContent from './SidebarNoteItemContent';
 
-export default async function SideBarNoteItem({ noteId, note }:{
+export default function SideBarNoteItem({ noteId, note }:{
   noteId: string,
   note:{
     title: string,

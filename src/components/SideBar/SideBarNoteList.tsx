@@ -1,8 +1,6 @@
-// 'use client'
-
 import SideBarNoteItem from './SideBarNoteItem';
 
-export default async function SideBarNoteList({ notes }: {
+export default function SideBarNoteList({ notes }: {
   notes: Array<any>
 }){
   if(!notes.length){
