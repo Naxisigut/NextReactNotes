@@ -1,7 +1,7 @@
 import React, { Suspense} from 'react'
 import Link from 'next/link'
 import SideBarNoteList from './SideBarNoteList';
-import EditButton from './EditButton';
+import EditButton from '../EditButton';
 import NoteListSkeleton from './NoteListSkeleton';
 
 export default function SideBar() {
