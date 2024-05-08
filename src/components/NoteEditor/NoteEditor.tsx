@@ -12,7 +12,7 @@ export default function NoteEditor({
   initialTitle,
   initialBody
 }: {
-  noteId: string | null,
+  noteId: string,
   initialTitle: string,
   initialBody: string
 }) {
@@ -21,7 +21,6 @@ export default function NoteEditor({
   const isDraft = !noteId
   const initialState: {msg: string | null} = { msg: null }
   const [saveState, saveFormAction] = useFormState(saveNote, initialState)
-
 
   return (
     <div className="note-editor">
@@ -33,6 +32,7 @@ export default function NoteEditor({
         </div>
         <div className="note-editor-menu">
           { saveState.msg }
+          { saveState.errors && saveState.errors[0].message}
         </div>
 
         {/* noteId输入框（隐藏） */}
