@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import NotePreview from '@/components/NotePreview';
-import { deleteNote, saveNote } from '@/actions';
+import DeleteButton from './DeleteButton';
+import SaveButton from './SaveButton';
 
 export default function NoteEditor({
   noteId,
@@ -13,7 +14,6 @@ export default function NoteEditor({
   initialTitle: string,
   initialBody: string
 }) {
-  const { pending } = useFormStatus()
   const [title, setTitle]  = useState(initialTitle)
   const [body, setBody]  = useState(initialBody)
   const isDraft = !noteId
@@ -24,33 +24,12 @@ export default function NoteEditor({
       
       <form className="note-editor-form" autoComplete='off'>
         <div className="note-editor-menu" role='menubar'>
-          <input type="hidden" name='noteId' value={noteId}   />
-
-          {/* 保存按钮 */}
-          <button 
-            className="note-editor-done" 
-            type='submit' 
-            role="menuitem" 
-            disabled={pending} 
-            formAction={saveNote}
-          >
-            <img src="/checkmark.svg" width="14px" height="10px" alt="" role="presentation" />
-            Done
-          </button>
-
-          {/* 删除按钮 */}
-          { !isDraft && ( 
-            <button 
-              className="note-editor-delete" 
-              role="menuitem" 
-              disabled={pending} 
-              formAction={deleteNote}
-            >
-              <img src="/cross.svg" width="10px" height="10px" alt="" role="presentation" />
-              Delete
-            </button>)
-          }
+          <SaveButton />
+          { !isDraft && <DeleteButton /> }
         </div>
+
+        {/* noteId输入框（隐藏） */}
+        <input type="hidden" name='noteId' value={noteId}   />
 
         {/* 标题 */}
         <label className="offscreen" htmlFor="note-title-input">
@@ -72,7 +51,7 @@ export default function NoteEditor({
           name='body'
           id="note-body-input" 
           value={body} 
-          onChange={(e)=>setBody(e.target.value)}
+          onChange={(e) => setBody(e.target.value)}
         />
       </form>
 
