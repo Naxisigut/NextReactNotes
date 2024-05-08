@@ -1,9 +1,11 @@
 'use client'
 import { useState } from 'react';
-import { useFormStatus } from 'react-dom';
 import NotePreview from '@/components/NotePreview';
 import DeleteButton from './DeleteButton';
 import SaveButton from './SaveButton';
+import { saveNote, deleteNote } from '@/actions';
+import { useFormState } from 'react-dom';
+
 
 export default function NoteEditor({
   noteId,
@@ -17,6 +19,8 @@ export default function NoteEditor({
   const [title, setTitle]  = useState(initialTitle)
   const [body, setBody]  = useState(initialBody)
   const isDraft = !noteId
+  const initialState: {msg: string | null} = { msg: null }
+  const [saveState, saveFormAction] = useFormState(saveNote, initialState)
 
 
   return (
@@ -24,8 +28,11 @@ export default function NoteEditor({
       
       <form className="note-editor-form" autoComplete='off'>
         <div className="note-editor-menu" role='menubar'>
-          <SaveButton />
-          { !isDraft && <DeleteButton /> }
+          <SaveButton formAction={saveFormAction} />
+          { !isDraft && <DeleteButton formAction={deleteNote}/> }
+        </div>
+        <div className="note-editor-menu">
+          { saveState.msg }
         </div>
 
         {/* noteId输入框（隐藏） */}

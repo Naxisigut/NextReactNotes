@@ -1,7 +1,9 @@
 import { useFormStatus } from "react-dom";
 import { saveNote } from '@/actions';
 
-export default function SaveButton() {
+export default function SaveButton({ formAction }: { 
+  formAction: any 
+}) {
   const { pending } = useFormStatus()
   return (
   <button 
@@ -9,7 +11,7 @@ export default function SaveButton() {
     type='submit' 
     role="menuitem" 
     disabled={pending} 
-    formAction={saveNote}
+    formAction={formAction}
   >
     <img src="/checkmark.svg" width="14px" height="10px" alt="" role="presentation" />
     { pending ? 'Saving' : 'Done' }

@@ -1,9 +1,10 @@
 'use server'
 import { addNote, updateNote, delNote } from '@/lib/redis';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 // 保存笔记
-export async function saveNote(formData){
+export async function saveNote(prevFormState, formData){
   const noteId = formData.get('noteId')
   const title = formData.get('title')
   const content = formData.get('body')
@@ -15,11 +16,13 @@ export async function saveNote(formData){
   if(noteId){
     // 编辑
     updateNote(noteId, data)
-    redirect(`/note/${noteId}`)
+    revalidatePath('/', 'layout') // 否则会导致左侧列表不更新最新修改的数据
+    return {msg: 'Update Success!'}
   }else{
     // 新增
     const newNoteId = await addNote(data)
-    redirect(`/note/${newNoteId}`)
+    revalidatePath('/', 'layout') // 否则会导致左侧列表不出现新添加的笔记
+    return {msg: 'Add Success!'}
   }
 }
 
