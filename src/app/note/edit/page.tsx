@@ -1,5 +1,7 @@
-export default function page({ chilren }) {
+import NoteEditor from '@/components/NoteEditor/NoteEditor';
+
+export default function page() {
   return (
-    <div>new Editing</div>
+    <NoteEditor noteId={null} initialBody='' initialTitle='Untitled'></NoteEditor>    
   )
 };

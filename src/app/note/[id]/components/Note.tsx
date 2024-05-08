@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import EditButton from '@/components/EditButton';
-import NotePreview from './NotePreview';
+import NotePreview from '@/components/NotePreview';
 
 export default function Note({ noteId, note }: {
   noteId: string,

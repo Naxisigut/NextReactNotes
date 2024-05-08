@@ -2,10 +2,12 @@ import { getNote } from '@/lib/redis';
 import Note from './components/Note';
 import { sleep } from '@/utils';
 
-export default async function page({params}) {
+export default async function page({params}:{
+  params: {id: string}
+}) {
   const noteId = params.id
   const note = await getNote(noteId)
-  await sleep(3000)
+  await sleep(1000)
   if(note){
     return <Note noteId={noteId} note={note}></Note>
   }else {
