@@ -18,7 +18,15 @@ export async function getAllNotes() {
   if (Object.keys(data).length == 0) {
     await redis.hset("notes", initialData);
   }
-  return await redis.hgetall("notes")
+  const allData = await redis.hgetall("notes")
+  const notes = Object.entries(allData)
+  const processdNotes = notes.map(([noteId, noteVal]) => {
+    const note = JSON.parse(noteVal)
+    const newItem: [string, NoteData] = [noteId, note]
+    return newItem
+  })
+  
+  return processdNotes
 }
 
 export async function addNote(data: NoteData) {

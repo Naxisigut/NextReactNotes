@@ -2,7 +2,7 @@ import React, { Suspense} from 'react'
 import Link from 'next/link'
 import SideBarNoteList from './SideBarNoteList';
 import EditButton from '../EditButton';
-import NoteListSkeleton from './NoteListSkeleton';
+import SideBarNoteListSkeleton from './SideBarNoteListSkeleton';
 import SideBarSearchField from './SideBarSearchField';
 
 export default function SideBar() {
@@ -25,7 +25,7 @@ export default function SideBar() {
 
         {/* sidebar note list */}
         <nav>
-          <Suspense fallback={<NoteListSkeleton />}>
+          <Suspense fallback={<SideBarNoteListSkeleton />}>
             <SideBarNoteList></SideBarNoteList>
           </Suspense>
         </nav>

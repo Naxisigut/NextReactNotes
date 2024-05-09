@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter } from "next/navigation"
-import { useTransition } from "react"
+import { useState, useTransition } from "react"
 import { sleep } from '@/utils';
 
 function Spinner({ active }: {
@@ -20,12 +20,17 @@ export default function SideBarSearchField() {
   const { replace } = useRouter()
   const pathname = usePathname()
   const [ isPending, startTransition ] = useTransition()
+  const params = new URLSearchParams(window.location.search)
+  const initialSearchStr = params.get('q') || ''
+  const [ searchStr, setSearchStr ] = useState(initialSearchStr)
+  console.log(121221);
 
+  // 输入搜索框，改变Url
   function handleSearch(val: string){
+    setSearchStr(val)
+    
     const params = new URLSearchParams(window.location.search)
     val ? params.set('q', val) : params.delete('q')
-
-    
     const newPathname = `${pathname}?${params.toString()}`
     startTransition(async () => {
       // 搜索笔记 改变url等操作耗时较久，需要延迟更新
@@ -44,6 +49,7 @@ export default function SideBarSearchField() {
         type="text"  
         id="sidebar-search-input"
         placeholder="search"
+        value={searchStr}
         onChange={(e) => handleSearch(e.target.value)}
       />
       <Spinner active={isPending}></Spinner>
