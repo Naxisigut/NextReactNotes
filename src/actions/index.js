@@ -23,7 +23,6 @@ export async function saveNote(prevFormState, formData){
   // 校验 
   const valiRes = schema.safeParse(data)
   if(!valiRes.success){
-    console.log(111, valiRes.error.issues);
     return {
       errors: valiRes.error.issues
     }

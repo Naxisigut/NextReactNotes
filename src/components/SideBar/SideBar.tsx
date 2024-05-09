@@ -3,6 +3,7 @@ import Link from 'next/link'
 import SideBarNoteList from './SideBarNoteList';
 import EditButton from '../EditButton';
 import NoteListSkeleton from './NoteListSkeleton';
+import SideBarSearchField from './SideBarSearchField';
 
 export default function SideBar() {
   
@@ -18,6 +19,7 @@ export default function SideBar() {
         
         {/* sidesearch field */}
         <section className="sidebar-menu" role="menubar">
+          <SideBarSearchField></SideBarSearchField>
           <EditButton noteId={null}>New</EditButton>
         </section>
 
