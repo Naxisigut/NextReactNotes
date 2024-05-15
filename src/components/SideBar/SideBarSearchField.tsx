@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { sleep } from '@/utils';
 
 function Spinner({ active }: {
@@ -20,10 +20,15 @@ export default function SideBarSearchField() {
   const { replace } = useRouter()
   const pathname = usePathname()
   const [ isPending, startTransition ] = useTransition()
-  const params = new URLSearchParams(window.location.search)
-  const initialSearchStr = params.get('q') || ''
-  const [ searchStr, setSearchStr ] = useState(initialSearchStr)
-  console.log(121221);
+  const [ searchStr, setSearchStr ] = useState('')
+
+  // 服务器会预编译客户端组件, 此时window不存在 会报错
+  // 放在useEffect里面可以确保这部分代码只在客户端执行
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const initialSearchStr = params.get('q') || ''
+    setSearchStr(initialSearchStr)
+  }, [])
 
   // 输入搜索框，改变Url
   function handleSearch(val: string){
@@ -38,7 +43,6 @@ export default function SideBarSearchField() {
       await sleep(500) // 使搜索loading效果更明显 
     })
   }
-
 
   return (
     <div className="search" role='search'>
