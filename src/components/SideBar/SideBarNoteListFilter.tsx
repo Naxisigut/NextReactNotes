@@ -1,30 +1,31 @@
 'use client'
 
-import SideBarNoteItem from './SideBarNoteItem';
 import { useSearchParams } from 'next/navigation';
+import { Children } from 'react';
 
-export default function SideBarNoteListFilter({notes} :{
-  notes: Array<[string, { title: string, content: string, updateTime: string}]>
-}) {
+export default function SideBarNoteListFilter({children}) {
   const searchParams = useSearchParams()
   const searchStr = searchParams.get('q') || ''
 
-  // 过滤标题不包含关键字的笔记
-  const filterNotes = notes.filter(([noteId, noteVal]) => {
-    return noteVal.title.includes(searchStr)
+  const filteredNotes = Children.map(children, (child, index) => {
+    // console.log(111, child);
+    const title = child.props.title as string
+    if(title.includes(searchStr)){
+      return (
+        <li key={child.props.noteId}>
+          { child }
+        </li>
+      )
+    }else{
+      return null
+    }
+    // return child
   })
+  
 
   return (
     <ul className="notes-list">
-      {
-        filterNotes.map(([noteId, noteVal], index) => {
-          return (
-            <li key={noteId}>
-              <SideBarNoteItem noteId={noteId} note={noteVal}></SideBarNoteItem>
-            </li>
-          )
-        })
-      }
+      { filteredNotes }
     </ul>  
   )
 };
