@@ -1,7 +1,6 @@
 import { getAllNotes } from '@/lib/redis';
 import { sleep } from '@/utils';
 import SideBarNoteListFilter from './SideBarNoteListFilter';
-import SideBarNoteItem from './SideBarNoteItem';
 import dayjs from 'dayjs';
 
 
@@ -17,19 +16,26 @@ export default async function SideBarNoteList(){
     )
   }
 
-  const allNoteItems = allNotes.map(([noteId, noteVal], index) => {
-    return (
-      <SideBarNoteItem noteId={noteId} note={noteVal}></SideBarNoteItem>
-    )
-  })
-
-  const allNoteItemHeaders = allNotes.map(([noteId, noteVal], index) => {
-
+  const allNoteItemDatas = allNotes.map(([noteId, noteVal], index) => {
+    const itemData = {
+      noteId,
+      noteTitle: noteVal.title,
+      expandedChildren: (
+        <p className="sidebar-note-excerpt">
+          {noteVal.content.substring(0, 20) || <i>(No content)</i>}
+        </p>
+      ),
+      header: (
+        <header className="sidebar-note-header">
+          <strong>{ noteVal.title }</strong>
+          <small>{ dayjs(noteVal.updateTime).format('YYYY-MM-DD hh:mm:ss') }</small>
+        </header>
+      )
+    }
+    return itemData
   })
 
   return (
-    <SideBarNoteListFilter itemHeaders={allNoteItemHeaders}>
-      { allNoteItems }
-    </SideBarNoteListFilter>
+    <SideBarNoteListFilter itemDatas={allNoteItemDatas} />
   )
 }

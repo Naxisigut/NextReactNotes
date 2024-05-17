@@ -2,28 +2,27 @@
 
 import SideBarNoteItem from './SideBarNoteItem';
 import { useSearchParams } from 'next/navigation';
-import { Children } from 'react';
 
-export default function SideBarNoteListFilter({itemHeaders}) {
+export default function SideBarNoteListFilter({itemDatas}:{
+  itemDatas: Array<{
+    noteId: string,
+    noteTitle: string,
+    expandedChildren: React.ReactNode,
+    header: React.ReactNode
+  }>
+}) {
   const searchParams = useSearchParams()
   const searchStr = searchParams.get('q') || ''
 
-  // const filteredNotes = Children.map(children, (child, index) => {
-  //   // console.log(111, child);
-  //   const title = child.props.title as string
-  //   if(title.includes(searchStr)){
-  //     return (
-  //       <li key={child.props.noteId}>
-  //         { child }
-  //       </li>
-  //     )
-  //   }else{
-  //     return null
-  //   }
-  // })
+  const filteredNotes = itemDatas.map((itemData, index) => {
+    const title = itemData.noteTitle
+    if(!title.includes(searchStr))return null
 
-  const filteredNotes = itemHeaders.map((header, index) => {
-    <SideBarNoteItem ></SideBarNoteItem>
+    return (
+      <li key={itemData.noteId}>
+        <SideBarNoteItem itemData={itemData}></SideBarNoteItem>
+      </li>
+    ) 
   })
   
 
