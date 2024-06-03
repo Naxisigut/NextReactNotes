@@ -1,6 +1,9 @@
+/* 所有SRC目录下的请求都先经过 middleware 执行*/
+
 import { match } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
 import { locales, defaultLocale } from '@/config/index.js';
+import { NextResponse } from 'next/server';
 
 function getLocale(request){
   const headers = {
@@ -26,6 +29,11 @@ export function middleware(request){
   const locale = getLocale(request)
   console.log(333, locale);
   request.nextUrl.pathname = `/${locale}${pathname}`
+  if(locale === defaultLocale){
+    // 若最终本地语言为项目默认语言，又不想要地址栏出现相关的动态参数
+    // 这里使用rewrite，作用是页面实际渲染的是request.nextUrl，但地址栏还是显示原来的url
+    NextResponse.rewrite(request.nextUrl)
+  }
   return Response.redirect(request.nextUrl)
 }
 
