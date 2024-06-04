@@ -27,7 +27,6 @@ export function middleware(request){
   if(publicFileReg.test(pathname))return
 
   const locale = getLocale(request)
-  console.log(333, locale);
   request.nextUrl.pathname = `/${locale}${pathname}`
   if(locale === defaultLocale){
     // 若最终本地语言为项目默认语言，又不想要地址栏出现相关的动态参数

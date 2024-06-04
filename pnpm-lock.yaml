@@ -23,6 +23,9 @@ dependencies:
   marked:
     specifier: ^12.0.2
     version: 12.0.2
+  mime:
+    specifier: ^4.0.3
+    version: 4.0.3
   negotiator:
     specifier: ^0.6.3
     version: 0.6.3
@@ -1873,6 +1876,12 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
     dev: true
+
+  /mime@4.0.3:
+    resolution: {integrity: sha512-KgUb15Oorc0NEKPbvfa0wRU+PItIEZmiv+pyAO2i0oTIVTJhlzMclU7w4RXWQrSOVH5ax/p/CkIO7KI4OyFJTQ==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dev: false
 
   /minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}

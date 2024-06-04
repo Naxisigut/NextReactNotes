@@ -4,6 +4,7 @@ import SideBarNoteList from './SideBarNoteList';
 import EditButton from '../EditButton';
 import SideBarNoteListSkeleton from './SideBarNoteListSkeleton';
 import SideBarSearchField from './SideBarSearchField';
+import SideBarImport from './SideBarImport';
 
 export default function SideBar() {
   
@@ -29,6 +30,9 @@ export default function SideBar() {
             <SideBarNoteList></SideBarNoteList>
           </Suspense>
         </nav>
+
+        {/* upload input */}
+        <SideBarImport></SideBarImport>
       </section>
     </>
   )
