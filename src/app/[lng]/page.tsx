@@ -1,10 +1,14 @@
-// import Image from "next/image";
-
-export default async function Page() {
+import { useTranslation } from '@/i18n';
+export default async function Page({
+  params: { lng }
+}:{
+  params: any
+}) {
+  const { t } = await useTranslation(lng)
   return (
     <div className="note--empty-state">
       <span className="note-text--empty-state">
-        Click a note on the left to view something!
+        { t('initText') }
       </span>
     </div>
   );

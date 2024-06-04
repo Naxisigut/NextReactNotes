@@ -20,7 +20,7 @@ export default function SideBar() {
         {/* sidesearch field */}
         <section className="sidebar-menu" role="menubar">
           <SideBarSearchField></SideBarSearchField>
-          <EditButton noteId={null}>New</EditButton>
+          <EditButton noteId={null}>+</EditButton>
         </section>
 
         {/* sidebar note list */}
