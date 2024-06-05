@@ -8,7 +8,8 @@ import { join } from "path";
 const genName = (file: File) => {
   const uniqueSuffix = `${Math.random().toString(36).slice(-6)}`;
   const rawFilename = file.name.replace(/\.[^/.]+$/, "")
-  const name = `${rawFilename}-${uniqueSuffix}.${mime.getType(file.type)}`
+  let ext = file.name.split('.').at(-1) || mime.getExtension(file.type)
+  const name = ext ? `${rawFilename}-${uniqueSuffix}.${ext}` : `${rawFilename}-${uniqueSuffix}` 
   return name
 }
 
