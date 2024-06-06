@@ -29,9 +29,10 @@ export async function getAllNotes() {
   return processdNotes
 }
 
-export async function addNote(data: NoteData) {
+export async function addNote(data: string) {
   const uuid = Date.now().toString();
-  await redis.hset("notes", [uuid], data);
+  await redis.hset("notes", uuid, data);
+  console.log(12121, uuid);
   return uuid
 }
 

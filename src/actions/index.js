@@ -28,13 +28,11 @@ export async function saveNote(prevFormState, formData){
     }
   }
 
-  if(noteId){
-    // 编辑
+  if(noteId){// 编辑
     updateNote(noteId, JSON.stringify(data))
     revalidatePath('/', 'layout') // 否则会导致左侧列表不更新最新修改的数据
     return {msg: 'Update Success!'}
-  }else{
-    // 新增
+  }else{// 新增
     const newNoteId = await addNote(JSON.stringify(data))
     revalidatePath('/', 'layout') // 否则会导致左侧列表不出现新添加的笔记
     return {msg: 'Add Success!'}
