@@ -13,6 +13,8 @@ type NoteData = {
   content: string,
   updateTime: string
 }
+
+/* 获取笔记列表 */
 export async function getAllNotes() {
   const data = await redis.hgetall("notes");
   if (Object.keys(data).length == 0) {
@@ -29,22 +31,28 @@ export async function getAllNotes() {
   return processdNotes
 }
 
+/* 新增笔记 */
 export async function addNote(data: string) {
   const uuid = Date.now().toString();
   await redis.hset("notes", uuid, data);
-  console.log(12121, uuid);
   return uuid
 }
 
-export async function updateNote(uuid: string, data: NoteData) {
-  await redis.hset("notes", [uuid], data);
+
+/* 更新笔记 */
+export async function updateNote(uuid: string, data: string) {
+  await redis.hset("notes", uuid, data);
 }
 
+
+/* 获取笔记数据 */
 export async function getNote(uuid: string) {
   const noteData = await redis.hget("notes", uuid)
   return noteData ? JSON.parse(noteData) as NoteData : null;
 }
 
+
+/* 删除笔记 */
 export async function delNote(uuid: string) {
   return redis.hdel("notes", uuid)
 }

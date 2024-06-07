@@ -14,5 +14,7 @@ export const genFile = async (path: string, name: string, file: File) => {
   }
 
   const buffer = Buffer.from(await file.arrayBuffer())
-  await writeFile(`${path}/${name}`, buffer)
+  const filePath =`${path}/${name}` 
+  await writeFile(filePath, buffer)
+  return filePath
 }
